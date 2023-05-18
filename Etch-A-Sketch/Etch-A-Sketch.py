@@ -1,8 +1,7 @@
 import turtle as t
 
-tomy = t.Turtle()
+tomy = t.Turtle(shape="turtle")
 tomy.color("black")
-tomy.shape("turtle")
 
 def move_forward():
     tomy.forward(20)
