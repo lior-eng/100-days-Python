@@ -1,8 +1,8 @@
 from tkinter import *
 
 FONT = ("Courier", 24, "bold")
-WIDTH = 500
-HEIGHT = 300
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 300
 
 def miles_to_km() -> None:
     miles = float(miles_input.get())
@@ -12,7 +12,7 @@ def miles_to_km() -> None:
 
 window = Tk()
 window.title("Miles to Km converter")
-window.minsize(width= WIDTH, height= HEIGHT)
+window.minsize(width= WINDOW_WIDTH, height= WINDOW_HEIGHT)
 window.config(padx= 20, pady= 20)
 
 miles_label = Label(text="Miles", font=FONT)
