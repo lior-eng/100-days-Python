@@ -1,20 +1,23 @@
-#################   Challenge    #################
+import pandas as pd
 
-# Keyword Method with iterrows()
-# {new_key:new_value for (index, row) in df.iterrows()}
-
-#TODO 1. Create a dictionary in this format:
 phonetic_data_frame = pd.read_csv("./NATO-alphabet-start/nato_phonetic_alphabet.csv")
-{"A": "Alfa", "B": "Bravo"}
+# {"A": "Alfa", "B": "Bravo"}
 phonetic_dict = {}
 phonetic_dict = {row.letter:row.code for (_, row) in phonetic_data_frame.iterrows()}
-print(phonetic_dict)
-    
-#TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-user_word = input("Enter a word to see the phonetic code: ").upper()
-phonetic_list = [phonetic_dict[letter] for letter in user_word]
-# print(phonetic_list)
- 
+
+def generate_phonetic() -> None:
+    user_word = input("Enter a word to see the phonetic code: ").upper()
+    try:
+        phonetic_list = [phonetic_dict[letter] for letter in user_word]
+    except KeyError:
+        print("Invalid input. Only letters in the alphabet ")
+        generate_phonetic()
+    else:
+        print(phonetic_list)
+        
+generate_phonetic()   
+
+
 #################   explanations of loops   #################
 
 student_dict = {
@@ -27,7 +30,6 @@ for (key, value) in student_dict.items():
     #Access key and value
     pass
 
-import pandas as pd
 student_data_frame = pd.DataFrame(student_dict)
 
 #Loop through rows of a data frame

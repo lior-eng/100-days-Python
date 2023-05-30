@@ -3,6 +3,28 @@ from tkinter import messagebox
 import pyperclip
 import random
 import string
+import json
+file_path = './Day-29, pass_generator UI/data.json'
+# ---------------------------------- Search ------------------------------------- #
+def find_password() -> None:
+    website: str = website_entry.get()
+    try:
+        with open(file_path, mode= 'r') as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showerror(title= "Error", message= "No Data File Found")
+    except json.JSONDecodeError:
+        messagebox.showerror(title= "Error", message= "File empty")
+    # except KeyError:
+    #     messagebox.showerror(title= "Error", message= "Invalid key")
+    else: 
+        if website in data:
+            email = data[website]['email']
+            password = data[website]['password']
+            messagebox.showinfo(title= website, message= f"Email: {email}\n"
+                                                        f"Password: {password}")
+        else:
+            messagebox.showerror(title= website, message= f"No details for {website} exists")
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 '''
 # String constants from string
@@ -26,10 +48,15 @@ def pass_generator() -> None:
     pyperclip.copy(password)
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save() -> None:
-    website = website_entry.get()
-    user_name = user_name_entry.get()
-    password = pass_entry.get()
-    
+    website: str = website_entry.get()
+    user_name: str = user_name_entry.get()
+    password: str = pass_entry.get()
+    new_data: dict  = {
+        website: {
+            "email": user_name,
+            "password": password
+        }
+    }
     if website == "" or user_name == "" or password == "":
         messagebox.showerror(title= "Oops", message= "Please don't leave any field empty")
     else:
@@ -39,10 +66,23 @@ def save() -> None:
                                     f" {user_name}\n"
                                     f" {password}\n")
         if is_ok:
-            with open(file= './Day-29, pass_generator UI/data.txt', mode= 'a') as data_file:
-                data_file.write(f"{website} |"
-                            f" {user_name} |"
-                            f" {password}\n")
+            try:
+                with open(file_path, mode= 'r') as data_file:
+                    data = json.load(data_file)
+            except FileNotFoundError:
+                print("New json file created")
+                with open(file_path, mode= 'w') as data_file:
+                    json.dump(new_data, data_file, indent= 4)
+            except json.JSONDecodeError:
+                print("Json file was empty")             
+                with open(file_path, mode= 'w') as data_file:
+                    json.dump(new_data, data_file, indent= 4)
+            else:
+                print("Json updated")  
+                data.update(new_data)                
+                with open(file_path, mode= 'w') as data_file:
+                    json.dump(data, data_file, indent= 4)
+                
             website_entry.delete(0,END)
             user_name_entry.delete(0,END)
             pass_entry.delete(0,END)
@@ -66,18 +106,20 @@ pass_label.grid(row= 3, column= 0)
 
 # Entries
 website_entry = Entry(width= 35)
-website_entry.grid(row= 1, column= 1, columnspan= 2)
+website_entry.grid(row= 1, column= 1)
 website_entry.focus()
 user_name_entry = Entry(width= 35)
-user_name_entry.grid(row= 2, column= 1, columnspan= 2)
-pass_entry = Entry(width= 21)
+user_name_entry.grid(row= 2, column= 1)
+pass_entry = Entry(width= 35)
 pass_entry.grid(row= 3, column= 1)
 
 # Buttons
 pass_button = Button(text= "Generate Password", width= 15, command= pass_generator)
 pass_button.grid(row= 3, column= 2, columnspan= 2)
-add_button = Button(text= "Add", width= 36, command= save)
+add_button = Button(text= "Add", width= 46, command= save)
 add_button.grid(row= 4, column= 1, columnspan= 2)
+search_button = Button(text= "Search", width= 15, command= find_password)
+search_button.grid(row= 1, column= 2)
 
 
 windom.mainloop()
