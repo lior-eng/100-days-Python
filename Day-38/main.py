@@ -39,7 +39,7 @@ bearer_headers = {
     "Authorization": f"Bearer {Authorization_token}"
 }
 
-response = requests.get(sheet_endpoint, headers= bearer_headers )
+response = requests.get(sheet_endpoint, headers= bearer_headers)
 
 for exercise in result["exercises"]:
     row_data = {
