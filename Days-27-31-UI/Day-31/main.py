@@ -5,9 +5,9 @@ import random
 BACKGROUND_COLOR = "#B1DDC6"
 current_word: dict = {}
 try:
-    df:pd.DataFrame = pd.read_csv("./Day-31/data/words_to_learn.csv")
+    df:pd.DataFrame = pd.read_csv("./Days-27-31-UI/Day-31/data/words_to_learn.csv")
 except FileNotFoundError:
-    df:pd.DataFrame = pd.read_csv("./Day-31/data/french_words.csv")
+    df:pd.DataFrame = pd.read_csv("./Days-27-31-UI/Day-31/data/french_words.csv")
     to_learn: list[dict] = df.to_dict(orient= "records")
 else:
     to_learn: list[dict] = df.to_dict(orient= "records")
@@ -29,7 +29,7 @@ def flip_card() -> None:
 def is_known() -> None:
     to_learn.remove(current_word)
     words_to_learn = pd.DataFrame(to_learn)
-    words_to_learn.to_csv("./Day-31/data/words_to_learn.csv", index= False)
+    words_to_learn.to_csv("./Days-27-31-UI/Day-31/data/words_to_learn.csv", index= False)
     new_card()
     
 window:object = Tk()
@@ -39,8 +39,8 @@ window.config(padx= 50, pady= 50, bg= "#B1DDC6")
 card_timer = window.after(3000, func= new_card)
 
 canvas = Canvas(height= 526, width= 800)
-front_card_img = PhotoImage(file= "./Day-31/images/card_front.png")
-back_card_img = PhotoImage(file= "./Day-31/images/card_back.png")
+front_card_img = PhotoImage(file= "./Days-27-31-UI/Day-31/images/card_front.png")
+back_card_img = PhotoImage(file= "./Days-27-31-UI/Day-31/images/card_back.png")
 card_background = canvas.create_image(400, 263, image= front_card_img)
 card_title = canvas.create_text(400, 150, text= "French", font= ("Arial", 40, "italic"))
 card_word = canvas.create_text(400, 260, text= "", font= ("Arial", 60, "bold"))
@@ -48,11 +48,11 @@ canvas.config(bg= "#B1DDC6", highlightthickness= 0)
 canvas.grid(row= 0, column= 0, columnspan= 2)
 
 # Buttons
-v_mark_image = PhotoImage(file= "./Day-31/images/right.png")
+v_mark_image = PhotoImage(file= "./Days-27-31-UI/Day-31/images/right.png")
 v_mark_button = Button(image= v_mark_image, highlightthickness= 0, command= is_known)
 v_mark_button.grid(row= 1, column= 1)
 
-x_mark_img = PhotoImage(file= "./Day-31/images/wrong.png")
+x_mark_img = PhotoImage(file= "./Days-27-31-UI/Day-31/images/wrong.png")
 x_mark_button = Button(image= x_mark_img, highlightthickness= 0, command= new_card)
 x_mark_button.grid(row= 1, column= 0)
 

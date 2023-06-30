@@ -4,7 +4,7 @@ import pyperclip
 import random
 import string
 import json
-file_path = './Day-29, pass_generator UI/data.json'
+file_path = './Days-27-31-UI/Day-29-pass_generator/data.json'
 # ---------------------------------- Search ------------------------------------- #
 def find_password() -> None:
     website: str = website_entry.get()
@@ -92,7 +92,7 @@ windom.title("Password Manager")
 windom.config(padx= 50, pady= 50)
 
 canvas = Canvas(height= 200, width= 200)
-pass_image = PhotoImage(file= "./Day-29, pass_generator UI/logo.png")
+pass_image = PhotoImage(file= "./Days-27-31-UI/Day-29-pass_generator/logo.png")
 canvas.create_image(100, 100, image= pass_image)
 canvas.grid(row= 0, column= 1)
 

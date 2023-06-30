@@ -65,7 +65,7 @@ title_label = Label(text= "Timer", fg= GREEN,bg= YELLOW, font=(FONT_NAME, 50))
 title_label.grid(row=0,column=1)
 
 canvas = Canvas(width= 200, height= 224, bg= YELLOW, highlightthickness=0)
-tomato_image = PhotoImage(file= "./Day-28/tomato.png")
+tomato_image = PhotoImage(file= "./Days-27-31-UI/Day-28/tomato.png")
 canvas.create_image(100, 112, image= tomato_image)
 timer_text = canvas.create_text(100, 135, text= "00:00", fill= "white", font= FONT)
 canvas.grid(row= 1,column= 1)
