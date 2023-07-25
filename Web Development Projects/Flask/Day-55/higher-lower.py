@@ -1,5 +1,4 @@
 from flask import Flask
-from typing import Callable, Any
 import random
 
 random_number = random.randint(0,9)
